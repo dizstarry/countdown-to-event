@@ -1,26 +1,26 @@
 const countdownDisplay = document.getElementById("countdown-display");
 
 function renderCountdown() {
-    const christmas = 25;
-    // Task:
-    // - Get today's date (you only need the day).
-    let today = new Date().toLocaleDateString('en-GB', { day: 'numeric' });
-    // - Calculate remaining days.
-    let remainingDays;
+    const christmas = new Date(new Date().getFullYear(), 11, 25);
 
-    // - Display remaining days in countdownDisplay.
+    // Calculate remaining time
+    const currentTime = new Date();
+    const timeDifference = christmas - currentTime;
 
-    if (today <= christmas) {
-        remainingDays = christmas - today;
-    }
+    // Calculate days, hours, minutes, and seconds
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-    // Display remaining days in countdownDisplay
-    countdownDisplay.textContent = `Countdown: ${remainingDays} days`;
+    // Display remaining time in countdownDisplay
+    countdownDisplay.textContent = `Countdown: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
 }
 
 // Call the function to update the countdown display
 renderCountdown();
 
-// Stretch goals:
-// - Display hours, minutes, seconds.
-// - Add a countdown for another festival, your birthday, or Christmas 2022.
+// Update the countdown every second
+setInterval(renderCountdown, 1000);
+
+
